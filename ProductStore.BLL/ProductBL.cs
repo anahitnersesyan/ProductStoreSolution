@@ -52,9 +52,9 @@ namespace ProductStore.BLL
             return result;
         }
     
-        public async Task<UpdateProductCountOutDTO> UpdateProductCountAsync(UpdateProductCountInDTO inModel)
+        public async Task<AddProductCountOutDTO> AddProductCountAsync(AddProductCountInDTO inModel)
         {
-            UpdateProductCountOutDTO result = new UpdateProductCountOutDTO();
+            AddProductCountOutDTO result = new AddProductCountOutDTO();
 
             var product = await _productRepository.FindAsync(a => a.Id == inModel.Id);
 

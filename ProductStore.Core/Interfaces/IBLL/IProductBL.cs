@@ -6,6 +6,7 @@ namespace ProductStore.Core.Interfaces.IBLL
     public interface IProductBL
     {
         Task<InputProductOutDTO> InputProductAsync(InputProductInDTO inModel);
-        Task<UpdateProductCountOutDTO> UpdateProductCountAsync(UpdateProductCountInDTO inModel);
+        Task<AddProductCountOutDTO> AddProductCountAsync(AddProductCountInDTO inModel);
+
     }
 }

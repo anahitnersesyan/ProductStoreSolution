@@ -2,7 +2,7 @@
 
 namespace ProductStore.Shared.DTOs
 {
-    public class UpdateProductCountOutDTO : BaseOutDTO
+    public class AddProductCountOutDTO : BaseOutDTO
     {
         public ProductDTO Product { get; set; }
     }

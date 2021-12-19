@@ -7,7 +7,8 @@ namespace ProductStore.Core.Interfaces.IBLL
     {
         Task<AddCustomerOutDTO> AddCustomerAsync(AddCustomerInDTO inModel);
         Task<SellProductOutDTO> SellProductToCustomerAsync(SellProductInDTO inModel);
-        Task<ReportSalesOutDTO> ReportSalesAsync(ReportSalesInDTO inModel);
         Task<ReportCustomersOutDTO> ReportCustomersAsync(ReportCustomersInDTO inModel);
+        Task<ReportSalesOutDTO> ReportSalesAsync(ReportSalesInDTO inModel);
+
     }
 }

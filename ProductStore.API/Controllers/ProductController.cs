@@ -22,10 +22,10 @@ namespace ProductStore.API.Controllers
             return await _productBL.InputProductAsync(inModel);
         }
 
-        [HttpPost("UpdateProductCount")]
-        public async Task<UpdateProductCountOutDTO> UpdateProductCountAsync(UpdateProductCountInDTO inModel)
+        [HttpPost("AddProductCount")]
+        public async Task<AddProductCountOutDTO> AddProductCountAsync(AddProductCountInDTO inModel)
         {
-            return await _productBL.UpdateProductCountAsync(inModel);
+            return await _productBL.AddProductCountAsync(inModel);
         }
     }
 }

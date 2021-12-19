@@ -7,7 +7,7 @@ namespace ProductStore.DAL.Repositories
     public class CustomerRepository : BaseRepository<Customer>, ICustomerRepository
     {
         public CustomerRepository(ApplicationContext applicationContext)
-            :base(applicationContext)
+            : base(applicationContext)
         {
 
         }

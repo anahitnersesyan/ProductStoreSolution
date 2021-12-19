@@ -31,15 +31,21 @@ namespace ProductStore.DAL.Repositories
            return await _appContext.Set<TEntity>().AnyAsync(expression);         
         }
    
-        public virtual async Task<ICollection<TEntity>> FindAllAsync(Expression<Func<TEntity, bool>> expression)
+        public virtual async Task<IEnumerable<TEntity>> FindAllAsync(Expression<Func<TEntity, bool>> expression)
         {
             return await _appContext.Set<TEntity>().Where(expression).ToListAsync();
+        }
+
+        public virtual async Task<IEnumerable<TEntity>> FindThenIncludeAsync(Expression<Func<TEntity, bool>> expression, params Expression<Func<TEntity, object>>[] includes)
+        {
+            var query = _appContext.Set<TEntity>().Where(expression);
+
+            return await  (includes.Aggregate(query, (current, includeProperty) => current.Include(includeProperty))).ToListAsync();   
         }
 
         public virtual async Task<TEntity> FindAsync(Expression<Func<TEntity, bool>> expression)
         {
             return  await _appContext.Set<TEntity>().SingleOrDefaultAsync(expression);
-
         }
 
         public virtual async Task<bool> RemoveAsync(TEntity entity)

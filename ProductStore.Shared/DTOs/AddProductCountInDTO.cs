@@ -2,7 +2,7 @@
 
 namespace ProductStore.Shared.DTOs
 {
-    public class UpdateProductCountInDTO
+    public class AddProductCountInDTO
     {
         [Required]
         public int Id { get; set; }

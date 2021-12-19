@@ -53,7 +53,7 @@ namespace ProductStore.BLL
         {
             ReportCustomersOutDTO result = new ReportCustomersOutDTO();
 
-            var sales = await _customerProductRepository.FindAllAsync(x => x.Date >= inModel.StartDate && x.Date <= inModel.EndDate);
+            var sales = await _customerProductRepository.FindThenIncludeAsync(x => x.Date >= inModel.StartDate && x.Date <= inModel.EndDate, y => y.Customer, z => z.Product);
 
             var groupedSales = sales.GroupBy(t => t.CustomerId);
 
@@ -74,27 +74,7 @@ namespace ProductStore.BLL
                         });
                     }
                 }
-
             }
-
-            return result;
-        }
-
-        public async Task<ReportSalesOutDTO> ReportSalesAsync(ReportSalesInDTO inModel)
-        {
-            ReportSalesOutDTO result = new ReportSalesOutDTO();
-
-            var sales = await _customerProductRepository.FindAllAsync(x => x.Date >= inModel.StartDate && x.Date <= inModel.EndDate);
-          
-            result.Reports = sales.Select(a => new SaleReportDTO
-            {
-                Date = a.Date,
-                Count = a.Count,
-                BarCode = a.Product.BarCode,
-                SectionId = a.Product.SectionId,
-                Price = a.Product.Price,
-                Income = a.Count * (a.Product.Price - a.Product.Cost)
-            }).ToList();
 
             return result;
         }
@@ -134,6 +114,25 @@ namespace ProductStore.BLL
             await _productRepository.UpdateAsync(product);
 
             result.CustomerProduct = _mapper.Map<CustomerProductDTO>(customerProduct);
+
+            return result;
+        }
+
+        public async Task<ReportSalesOutDTO> ReportSalesAsync(ReportSalesInDTO inModel)
+        {
+            ReportSalesOutDTO result = new ReportSalesOutDTO();
+
+            var sales = await _customerProductRepository.FindThenIncludeAsync(x => x.Date >= inModel.StartDate && x.Date <= inModel.EndDate, y => y.Product);
+
+            result.Reports = sales.Select(a => new SaleReportDTO
+            {
+                Date = a.Date,
+                Count = a.Count,
+                BarCode = a.Product.BarCode,
+                SectionId = a.Product.SectionId,
+                Price = a.Product.Price,
+                Income = a.Count * (a.Product.Price - a.Product.Cost)
+            }).ToList();
 
             return result;
         }
